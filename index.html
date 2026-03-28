@@ -258,7 +258,7 @@
                 <p
                     class="text-gray-600 text-[10px] mt-2 tracking-widest uppercase"
                 >
-                    © 2024 Hai Long Kim Tourist
+                    © <span id="currentYear"></span> Hai Long Kim Tourist
                 </p>
             </div>
 
@@ -326,6 +326,9 @@
                 document.getElementById('langToggleText').textContent =
                     t.toggle;
             }
+
+            document.getElementById('currentYear').textContent =
+                new Date().getFullYear();
 
             function updateCountdown() {
                 const now = new Date().getTime();
