@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Hai Long Kim Tourist - Hành Trình Khám Phá Sắp Bắt Đầu</title>
+        <meta
+            name="description"
+            content="Hai Long Kim Tourist sắp ra mắt với các hành trình du lịch cao cấp, trải nghiệm độc bản và dịch vụ chuyên nghiệp. Theo dõi thời điểm khai trương ngay hôm nay."
+        />
+        <meta
+            name="keywords"
+            content="Hai Long Kim Tourist, du lịch cao cấp, tour du lịch, công ty du lịch, khai trương sắp tới, hành trình khám phá"
+        />
+        <meta name="author" content="Hai Long Kim Tourist" />
+        <meta
+            name="robots"
+            content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+        />
+        <meta name="theme-color" content="#020617" />
+
+        <meta property="og:locale" content="vi_VN" />
+        <meta property="og:type" content="website" />
+        <meta
+            property="og:title"
+            content="Hai Long Kim Tourist - Hành Trình Khám Phá Sắp Bắt Đầu"
+        />
+        <meta
+            property="og:description"
+            content="Sẵn sàng cho những hành trình độc bản cùng Hai Long Kim Tourist. Đếm ngược đến ngày khai trương chính thức."
+        />
+        <meta property="og:site_name" content="Hai Long Kim Tourist" />
+        <meta
+            property="og:image"
+            content="https://images.unsplash.com/photo-1506461883276-594a12b11cf3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+        />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+            name="twitter:title"
+            content="Hai Long Kim Tourist - Hành Trình Khám Phá Sắp Bắt Đầu"
+        />
+        <meta
+            name="twitter:description"
+            content="Sẵn sàng cho những hành trình độc bản cùng Hai Long Kim Tourist."
+        />
+        <meta
+            name="twitter:image"
+            content="https://images.unsplash.com/photo-1506461883276-594a12b11cf3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+        />
+
+        <link rel="canonical" href="/" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "TravelAgency",
+                "name": "Hai Long Kim Tourist",
+                "description": "Dịch vụ du lịch cao cấp với các hành trình độc bản và trải nghiệm trọn vẹn.",
+                "url": "/",
+                "inLanguage": "vi",
+                "areaServed": "VN"
+            }
+        </script>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
+
+            :root {
+                --color-gold: #d4af37;
+                --color-gold-light: #f97316;
+                --color-ocean-deep: #020617;
+            }
+
+            body {
+                font-family: 'Plus Jakarta Sans', sans-serif;
+                background-color: var(--color-ocean-deep);
+            }
+
+            .hero-gradient {
+                background:
+                    linear-gradient(rgba(2, 6, 23, 0.6), rgba(2, 6, 23, 0.8)),
+                    url('https://images.unsplash.com/photo-1506461883276-594a12b11cf3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+            }
+
+            .glass-card {
+                background: rgba(255, 255, 255, 0.03);
+                backdrop-filter: blur(15px);
+                border: 1px solid rgba(212, 175, 55, 0.2);
+            }
+
+            .text-glow-gold {
+                text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+            }
+
+            .border-gold-gradient {
+                border-image: linear-gradient(to right, #d4af37, #f97316) 1;
+            }
+
+            .gold-shimmer {
+                background: linear-gradient(
+                    135deg,
+                    #fde68a 0%,
+                    #d4af37 50%,
+                    #fde68a 100%
+                );
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-size: 200% auto;
+                animation: shimmer 3s linear infinite;
+            }
+
+            @keyframes shimmer {
+                to {
+                    background-position: 200% center;
+                }
+            }
+        </style>
+    </head>
+    <body class="text-white overflow-hidden">
+        <!-- Hero Section -->
+        <section
+            class="hero-gradient min-h-screen flex flex-col items-center justify-center px-4 relative"
+        >
+            <!-- Logo Area -->
+            <div
+                class="absolute top-12 left-1/2 -translate-x-1/2 text-center w-full"
+            >
+                <h1
+                    class="text-3xl md:text-4xl font-bold tracking-[0.3em] uppercase"
+                >
+                    <span class="gold-shimmer">Hải Long Kim</span>
+                </h1>
+            </div>
+
+            <!-- Language Toggle -->
+            <div class="absolute top-8 right-4 md:right-8 z-20">
+                <button
+                    id="langToggle"
+                    type="button"
+                    class="px-4 py-2 text-xs md:text-sm font-semibold tracking-widest uppercase rounded-full border border-amber-500/40 bg-slate-900/40 hover:bg-slate-900/60 transition"
+                    aria-label="Chuyển đổi ngôn ngữ"
+                >
+                    <span id="langToggleText">EN</span>
+                </button>
+            </div>
+
+            <!-- Main Content -->
+            <div class="max-w-4xl w-full text-center space-y-10 z-10">
+                <div
+                    id="badgeText"
+                    class="inline-block px-6 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-[0.4em] mb-4"
+                >
+                    Grand Opening Soon
+                </div>
+
+                <h2
+                    class="text-5xl md:text-8xl font-bold leading-tight tracking-tight text-glow-gold"
+                >
+                    <span id="heroLine1">Khám Phá</span> <br />
+                    <span
+                        id="heroLine2"
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-500 to-amber-600"
+                        >Đẳng Cấp Mới</span
+                    >
+                </h2>
+
+                <p
+                    id="introText"
+                    class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed opacity-90 font-light"
+                >
+                    Hai Long Kim Tourist đang kiến tạo những hành trình độc bản,
+                    mang phong cách thượng lưu và trải nghiệm trọn vẹn. Hãy cùng
+                    chúng tôi viết nên câu chuyện của bạn.
+                </p>
+
+                <!-- Countdown Timer -->
+                <div
+                    class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16"
+                    id="countdown"
+                >
+                    <div
+                        class="glass-card p-8 rounded-2xl transition-all duration-500 hover:scale-105 hover:border-amber-500/50"
+                    >
+                        <span
+                            id="days"
+                            class="text-5xl md:text-6xl font-bold block text-amber-400"
+                            >00</span
+                        >
+                        <span
+                            id="labelDays"
+                            class="text-gray-400 text-xs uppercase tracking-[0.2em] mt-3 block"
+                            >Ngày</span
+                        >
+                    </div>
+                    <div
+                        class="glass-card p-8 rounded-2xl transition-all duration-500 hover:scale-105 hover:border-amber-500/50"
+                    >
+                        <span
+                            id="hours"
+                            class="text-5xl md:text-6xl font-bold block"
+                            >00</span
+                        >
+                        <span
+                            id="labelHours"
+                            class="text-gray-400 text-xs uppercase tracking-[0.2em] mt-3 block"
+                            >Giờ</span
+                        >
+                    </div>
+                    <div
+                        class="glass-card p-8 rounded-2xl transition-all duration-500 hover:scale-105 hover:border-amber-500/50"
+                    >
+                        <span
+                            id="minutes"
+                            class="text-5xl md:text-6xl font-bold block"
+                            >00</span
+                        >
+                        <span
+                            id="labelMinutes"
+                            class="text-gray-400 text-xs uppercase tracking-[0.2em] mt-3 block"
+                            >Phút</span
+                        >
+                    </div>
+                    <div
+                        class="glass-card p-8 rounded-2xl transition-all duration-500 hover:scale-105 hover:border-amber-500/50"
+                    >
+                        <span
+                            id="seconds"
+                            class="text-5xl md:text-6xl font-bold block"
+                            >00</span
+                        >
+                        <span
+                            id="labelSeconds"
+                            class="text-gray-400 text-xs uppercase tracking-[0.2em] mt-3 block"
+                            >Giây</span
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <!-- Minimal Footer -->
+            <div class="absolute bottom-12 w-full text-center">
+                <p
+                    id="footerSlogan"
+                    class="text-amber-500/60 text-[10px] md:text-xs tracking-[0.5em] uppercase font-semibold"
+                >
+                    Sự Sang Trọng Trong Từng Điểm Đến
+                </p>
+                <p
+                    class="text-gray-600 text-[10px] mt-2 tracking-widest uppercase"
+                >
+                    © 2024 Hai Long Kim Tourist
+                </p>
+            </div>
+
+            <!-- Decorative Elements -->
+            <div
+                class="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] bg-blue-900/10 blur-[150px] rounded-full"
+            ></div>
+            <div
+                class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-amber-900/10 blur-[150px] rounded-full"
+            ></div>
+        </section>
+
+        <script>
+            // Thiết lập ngày ra mắt (60 ngày kể từ hiện tại - 2 tháng)
+            const launchDate = new Date();
+            launchDate.setDate(launchDate.getDate() + 60);
+            let currentLang = 'vi';
+
+            const i18n = {
+                vi: {
+                    title: 'Hai Long Kim Tourist - Hành Trình Khám Phá Sắp Bắt Đầu',
+                    badge: 'Grand Opening Soon',
+                    heroLine1: 'Khám Phá',
+                    heroLine2: 'Đẳng Cấp Mới',
+                    intro: 'Hai Long Kim Tourist đang kiến tạo những hành trình độc bản, mang phong cách thượng lưu và trải nghiệm trọn vẹn. Hãy cùng chúng tôi viết nên câu chuyện của bạn.',
+                    days: 'Ngày',
+                    hours: 'Giờ',
+                    minutes: 'Phút',
+                    seconds: 'Giây',
+                    footer: 'Sự Sang Trọng Trong Từng Điểm Đến',
+                    launchStarted: 'Hành trình đã bắt đầu!',
+                    toggle: 'EN',
+                },
+                en: {
+                    title: 'Hai Long Kim Tourist - A New Journey Begins Soon',
+                    badge: 'Grand Opening Soon',
+                    heroLine1: 'Discover',
+                    heroLine2: 'A New Standard',
+                    intro: 'Hai Long Kim Tourist is crafting one-of-a-kind journeys with premium style and complete experiences. Let us help you write your own travel story.',
+                    days: 'Days',
+                    hours: 'Hours',
+                    minutes: 'Minutes',
+                    seconds: 'Seconds',
+                    footer: 'Luxury In Every Destination',
+                    launchStarted: 'The journey has begun!',
+                    toggle: 'VI',
+                },
+            };
+
+            function applyLanguage(lang) {
+                currentLang = lang;
+                const t = i18n[lang];
+
+                document.documentElement.lang = lang;
+                document.title = t.title;
+                document.getElementById('badgeText').textContent = t.badge;
+                document.getElementById('heroLine1').textContent = t.heroLine1;
+                document.getElementById('heroLine2').textContent = t.heroLine2;
+                document.getElementById('introText').textContent = t.intro;
+                document.getElementById('labelDays').textContent = t.days;
+                document.getElementById('labelHours').textContent = t.hours;
+                document.getElementById('labelMinutes').textContent = t.minutes;
+                document.getElementById('labelSeconds').textContent = t.seconds;
+                document.getElementById('footerSlogan').textContent = t.footer;
+                document.getElementById('langToggleText').textContent =
+                    t.toggle;
+            }
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = launchDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor(
+                    (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+                );
+                const minutes = Math.floor(
+                    (distance % (1000 * 60 * 60)) / (1000 * 60),
+                );
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerText = days
+                    .toString()
+                    .padStart(2, '0');
+                document.getElementById('hours').innerText = hours
+                    .toString()
+                    .padStart(2, '0');
+                document.getElementById('minutes').innerText = minutes
+                    .toString()
+                    .padStart(2, '0');
+                document.getElementById('seconds').innerText = seconds
+                    .toString()
+                    .padStart(2, '0');
+
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById('countdown').innerHTML =
+                        `<p class='text-2xl font-bold text-amber-500 col-span-4 tracking-[0.3em] uppercase'>${i18n[currentLang].launchStarted}</p>`;
+                }
+            }
+
+            document
+                .getElementById('langToggle')
+                .addEventListener('click', () => {
+                    const nextLang = currentLang === 'vi' ? 'en' : 'vi';
+                    applyLanguage(nextLang);
+                });
+
+            applyLanguage('vi');
+            const countdownInterval = setInterval(updateCountdown, 1000);
+            updateCountdown();
+        </script>
+    </body>
+</html>
