@@ -272,8 +272,9 @@
         </section>
 
         <script>
-            // Thiết lập ngày ra mắt (60 ngày kể từ hiện tại - 2 tháng)
-            const launchDate = new Date();
+            // Thiết lập ngày ra mắt: 60 ngày tính từ 26/03/2026
+            const baseDate = new Date('2026-03-26T00:00:00+07:00');
+            const launchDate = new Date(baseDate);
             launchDate.setDate(launchDate.getDate() + 60);
             let currentLang = 'vi';
 
