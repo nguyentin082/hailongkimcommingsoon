@@ -5,6 +5,8 @@
 
     let currentLang = 'vi';
     let countdownInterval;
+    let calendarMonthDate = new Date();
+    calendarMonthDate.setDate(1);
 
     const i18n = {
         vi: {
@@ -24,6 +26,13 @@
             timelineNowLabel: 'Giai đoạn hiện tại',
             timelineNotStartedText: 'Chưa bắt đầu',
             timelineDoneText: 'Hoàn tất toàn bộ timeline',
+            calendarTitle: 'Lịch timeline',
+            calendarToday: 'Hôm nay',
+            calendarMilestone: 'Mốc timeline',
+            calendarTodayInfo: 'Hôm nay: {date}',
+            calendarAriaPrev: 'Tháng trước',
+            calendarAriaNext: 'Tháng sau',
+            weekdaysShort: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'],
             milestones: [
                 'Thiết kế Figma',
                 'Khách hàng: Feedback thiết kế',
@@ -50,6 +59,13 @@
             timelineNowLabel: 'Current stage',
             timelineNotStartedText: 'Not started yet',
             timelineDoneText: 'All timeline milestones completed',
+            calendarTitle: 'Timeline calendar',
+            calendarToday: 'Today',
+            calendarMilestone: 'Timeline milestone',
+            calendarTodayInfo: 'Today: {date}',
+            calendarAriaPrev: 'Previous month',
+            calendarAriaNext: 'Next month',
+            weekdaysShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
             milestones: [
                 'Figma design',
                 'Client: Feedback design',
@@ -69,6 +85,17 @@
         { date: new Date('2026-04-20T00:00:00+07:00') },
         { date: new Date('2026-04-23T00:00:00+07:00') },
     ];
+
+    const milestoneDateKeys = new Set(
+        timelineMilestones.map((item) => toDateKey(item.date)),
+    );
+
+    function toDateKey(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
 
     function setTextById(id, value) {
         const el = document.getElementById(id);
@@ -91,6 +118,115 @@
             month: '2-digit',
             year: 'numeric',
         });
+    }
+
+    function formatCalendarMonthLabel(date, lang) {
+        const locale = lang === 'vi' ? 'vi-VN' : 'en-US';
+        return date.toLocaleDateString(locale, {
+            month: 'long',
+            year: 'numeric',
+        });
+    }
+
+    function renderCalendar() {
+        const t = i18n[currentLang];
+        const grid = document.getElementById('calendarGrid');
+        if (!grid) {
+            return;
+        }
+
+        const monthLabel = document.getElementById('calendarMonthLabel');
+        const todayInfo = document.getElementById('calendarTodayInfo');
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        setTextById('calendarTitle', t.calendarTitle);
+        setTextById('calendarLegendToday', t.calendarToday);
+        setTextById('calendarLegendMilestone', t.calendarMilestone);
+        setTextById(
+            'calendarTodayInfo',
+            t.calendarTodayInfo.replace(
+                '{date}',
+                formatTimelineDate(today, currentLang),
+            ),
+        );
+
+        const prevBtn = document.getElementById('calendarPrev');
+        const nextBtn = document.getElementById('calendarNext');
+        if (prevBtn) {
+            prevBtn.setAttribute('aria-label', t.calendarAriaPrev);
+        }
+        if (nextBtn) {
+            nextBtn.setAttribute('aria-label', t.calendarAriaNext);
+        }
+
+        if (monthLabel) {
+            monthLabel.textContent = formatCalendarMonthLabel(
+                calendarMonthDate,
+                currentLang,
+            );
+        }
+
+        const firstDay = new Date(
+            calendarMonthDate.getFullYear(),
+            calendarMonthDate.getMonth(),
+            1,
+        );
+        const daysInMonth = new Date(
+            calendarMonthDate.getFullYear(),
+            calendarMonthDate.getMonth() + 1,
+            0,
+        ).getDate();
+
+        const startWeekDay = (firstDay.getDay() + 6) % 7;
+
+        const weekdayHtml = t.weekdaysShort
+            .map(
+                (day) =>
+                    `<div class="text-[10px] sm:text-xs text-gray-400 uppercase tracking-wider py-1">${day}</div>`,
+            )
+            .join('');
+
+        let dayCellsHtml = '';
+
+        for (let i = 0; i < startWeekDay; i += 1) {
+            dayCellsHtml += '<div class="h-8"></div>';
+        }
+
+        for (let day = 1; day <= daysInMonth; day += 1) {
+            const date = new Date(
+                calendarMonthDate.getFullYear(),
+                calendarMonthDate.getMonth(),
+                day,
+            );
+            date.setHours(0, 0, 0, 0);
+
+            const isToday = date.getTime() === today.getTime();
+            const isMilestone = milestoneDateKeys.has(toDateKey(date));
+
+            const baseClass =
+                'h-8 rounded-md flex items-center justify-center text-xs sm:text-sm';
+            const todayClass = isToday
+                ? 'bg-amber-500/20 text-amber-300 ring-1 ring-amber-400/50'
+                : '';
+            const milestoneClass =
+                !isToday && isMilestone
+                    ? 'bg-emerald-500/20 text-emerald-300 ring-1 ring-emerald-400/40'
+                    : '';
+            const defaultClass =
+                !isToday && !isMilestone ? 'text-gray-200' : '';
+
+            dayCellsHtml += `<div class="${baseClass} ${todayClass} ${milestoneClass} ${defaultClass}">${day}</div>`;
+        }
+
+        grid.innerHTML = `${weekdayHtml}${dayCellsHtml}`;
+
+        if (todayInfo) {
+            todayInfo.textContent = t.calendarTodayInfo.replace(
+                '{date}',
+                formatTimelineDate(today, currentLang),
+            );
+        }
     }
 
     function renderTimeline() {
@@ -179,6 +315,7 @@
         setTextById('timelineNowLabel', t.timelineNowLabel);
 
         renderTimeline();
+        renderCalendar();
     }
 
     function updateCountdown() {
@@ -215,6 +352,30 @@
             langToggle.addEventListener('click', () => {
                 const nextLang = currentLang === 'vi' ? 'en' : 'vi';
                 applyLanguage(nextLang);
+            });
+        }
+
+        const calendarPrev = document.getElementById('calendarPrev');
+        if (calendarPrev) {
+            calendarPrev.addEventListener('click', () => {
+                calendarMonthDate = new Date(
+                    calendarMonthDate.getFullYear(),
+                    calendarMonthDate.getMonth() - 1,
+                    1,
+                );
+                renderCalendar();
+            });
+        }
+
+        const calendarNext = document.getElementById('calendarNext');
+        if (calendarNext) {
+            calendarNext.addEventListener('click', () => {
+                calendarMonthDate = new Date(
+                    calendarMonthDate.getFullYear(),
+                    calendarMonthDate.getMonth() + 1,
+                    1,
+                );
+                renderCalendar();
             });
         }
 
