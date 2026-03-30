@@ -27,7 +27,7 @@
             seconds: 'Giây',
             footer: 'Sự Sang Trọng Trong Từng Điểm Đến',
             launchStarted: 'Hành trình đã bắt đầu!',
-            toggle: 'EN',
+            toggleAria: 'Chuyển sang tiếng Anh',
             timelineTitle: 'Timeline dự án',
             calendarTitle: 'Lịch timeline',
             calendarToday: 'Hôm nay',
@@ -57,7 +57,7 @@
             seconds: 'Seconds',
             footer: 'Luxury In Every Destination',
             launchStarted: 'The journey has begun!',
-            toggle: 'VI',
+            toggleAria: 'Switch to Vietnamese',
             timelineTitle: 'Project timeline',
             calendarTitle: 'Timeline calendar',
             calendarToday: 'Today',
@@ -433,6 +433,44 @@
         countdownContainer.innerHTML = `<p class='text-2xl font-bold text-amber-500 col-span-4 tracking-[0.3em] uppercase'>${i18n[currentLang].launchStarted}</p>`;
     }
 
+    function setLanguageToggleState(lang) {
+        const button = document.getElementById('langToggle');
+        const enOption = document.getElementById('langOptionEN');
+        const viOption = document.getElementById('langOptionVI');
+
+        if (button) {
+            button.setAttribute('aria-label', i18n[lang].toggleAria);
+        }
+
+        const activeClass = [
+            'bg-gradient-to-r',
+            'from-amber-200',
+            'to-amber-400',
+            'text-slate-900',
+            'border-amber-100/80',
+            'shadow-[0_4px_14px_rgba(251,191,36,0.45)]',
+        ];
+        const inactiveClass = [
+            'bg-transparent',
+            'text-amber-100/80',
+            'border-white/15',
+        ];
+
+        if (enOption) {
+            enOption.classList.remove(...activeClass, ...inactiveClass);
+            enOption.classList.add(
+                ...(lang === 'en' ? activeClass : inactiveClass),
+            );
+        }
+
+        if (viOption) {
+            viOption.classList.remove(...activeClass, ...inactiveClass);
+            viOption.classList.add(
+                ...(lang === 'vi' ? activeClass : inactiveClass),
+            );
+        }
+    }
+
     function applyLanguage(lang) {
         currentLang = lang;
         const t = i18n[lang];
@@ -448,8 +486,8 @@
         setTextById('labelMinutes', t.minutes);
         setTextById('labelSeconds', t.seconds);
         setTextById('footerSlogan', t.footer);
-        setTextById('langToggleText', t.toggle);
         setTextById('timelineTitle', t.timelineTitle);
+        setLanguageToggleState(lang);
 
         renderTimeline();
         renderCalendar();
