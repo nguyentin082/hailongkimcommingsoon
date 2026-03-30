@@ -162,7 +162,9 @@
             </div>
 
             <!-- Main Content -->
-            <div class="max-w-4xl w-full text-center space-y-6 md:space-y-10 z-10 pt-20 pb-20 sm:pt-28 sm:pb-24">
+            <div
+                class="max-w-4xl w-full text-center space-y-6 md:space-y-10 z-10 pt-20 pb-20 sm:pt-28 sm:pb-24"
+            >
                 <div
                     id="badgeText"
                     class="inline-block px-4 py-1.5 sm:px-6 sm:py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] sm:tracking-[0.4em] mb-2 sm:mb-4"
@@ -282,7 +284,7 @@
             // Thiết lập ngày ra mắt: 60 ngày tính từ 26/03/2026
             const baseDate = new Date('2026-03-26T00:00:00+07:00');
             const launchDate = new Date(baseDate);
-            launchDate.setDate(launchDate.getDate() + 60);
+            launchDate.setDate(launchDate.getDate() + 28);
             let currentLang = 'vi';
 
             const i18n = {
