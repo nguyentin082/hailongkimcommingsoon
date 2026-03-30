@@ -78,7 +78,7 @@
     };
 
     const timelineMilestones = [
-        { date: new Date('2025-03-26T00:00:00+07:00') },
+        { date: new Date('2026-03-26T00:00:00+07:00') },
         { date: new Date('2026-04-05T00:00:00+07:00') },
         { date: new Date('2026-04-06T00:00:00+07:00') },
         { date: new Date('2026-04-09T00:00:00+07:00') },
@@ -354,7 +354,7 @@
             const baseClass =
                 'h-8 rounded-md flex items-center justify-center text-xs sm:text-sm';
             const todayClass = isToday
-                ? 'bg-amber-500/20 text-amber-300 ring-1 ring-amber-400/50'
+                ? 'bg-sky-500/20 text-sky-300 ring-1 ring-sky-400/50'
                 : '';
             const milestoneClass =
                 !isToday && isMilestone
