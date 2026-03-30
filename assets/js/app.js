@@ -6,7 +6,13 @@
     let currentLang = 'vi';
     let countdownInterval;
     let calendarMonthDate = new Date();
-    calendarMonthDate.setDate(1);
+    let activeLinkedDateKey = null;
+    let lastTimelineDayKey = '';
+    calendarMonthDate = new Date(
+        calendarMonthDate.getFullYear(),
+        calendarMonthDate.getMonth(),
+        1,
+    );
 
     const i18n = {
         vi: {
@@ -104,6 +110,153 @@
         }
     }
 
+    function parseDateKey(dateKey) {
+        const [year, month, day] = dateKey.split('-').map(Number);
+        return new Date(year, month - 1, day);
+    }
+
+    function getTodayDateKey() {
+        return toDateKey(new Date());
+    }
+
+    function clearLinkedState() {
+        document.querySelectorAll('.is-linked-active').forEach((element) => {
+            element.classList.remove('is-linked-active');
+        });
+        activeLinkedDateKey = null;
+    }
+
+    function triggerJumpAnimation(element) {
+        if (!element) {
+            return;
+        }
+
+        element.classList.remove('linked-jump');
+        void element.offsetWidth;
+        element.classList.add('linked-jump');
+        setTimeout(() => element.classList.remove('linked-jump'), 380);
+    }
+
+    function ensureCalendarMonthHasDate(dateKey) {
+        const date = parseDateKey(dateKey);
+        const targetYear = date.getFullYear();
+        const targetMonth = date.getMonth();
+
+        if (
+            calendarMonthDate.getFullYear() !== targetYear ||
+            calendarMonthDate.getMonth() !== targetMonth
+        ) {
+            calendarMonthDate = new Date(targetYear, targetMonth, 1);
+            renderCalendar();
+        }
+    }
+
+    function activateLinkedByDateKey(
+        dateKey,
+        {
+            jumpCalendar = false,
+            jumpTimeline = false,
+            ensureCalendar = false,
+        } = {},
+    ) {
+        if (!dateKey) {
+            return;
+        }
+
+        if (ensureCalendar) {
+            ensureCalendarMonthHasDate(dateKey);
+        }
+
+        clearLinkedState();
+        activeLinkedDateKey = dateKey;
+
+        const timelineItems = document.querySelectorAll(
+            `.timeline-item[data-date-key="${dateKey}"]`,
+        );
+        const calendarCell = document.querySelector(
+            `.calendar-day[data-date-key="${dateKey}"]`,
+        );
+
+        timelineItems.forEach((item) => {
+            item.classList.add('is-linked-active');
+            if (jumpTimeline) {
+                triggerJumpAnimation(item);
+            }
+        });
+
+        if (calendarCell) {
+            calendarCell.classList.add('is-linked-active');
+            if (jumpCalendar) {
+                triggerJumpAnimation(calendarCell);
+            }
+        }
+    }
+
+    function bindLinkedHoverEvents() {
+        const timelineList = document.getElementById('timelineList');
+        const calendarGrid = document.getElementById('calendarGrid');
+
+        if (timelineList && !timelineList.dataset.linkedBound) {
+            timelineList.dataset.linkedBound = '1';
+
+            timelineList.addEventListener('mouseover', (event) => {
+                const item = event.target.closest('.timeline-item');
+                if (!item || !timelineList.contains(item)) {
+                    return;
+                }
+
+                const dateKey = item.dataset.dateKey;
+                if (!dateKey) {
+                    return;
+                }
+
+                activateLinkedByDateKey(dateKey, {
+                    jumpCalendar: true,
+                    ensureCalendar: true,
+                });
+            });
+
+            timelineList.addEventListener('mouseleave', () => {
+                clearLinkedState();
+            });
+        }
+
+        if (calendarGrid && !calendarGrid.dataset.linkedBound) {
+            calendarGrid.dataset.linkedBound = '1';
+
+            calendarGrid.addEventListener('mouseover', (event) => {
+                const cell = event.target.closest(
+                    '.calendar-day[data-has-milestone="1"]',
+                );
+                if (!cell || !calendarGrid.contains(cell)) {
+                    return;
+                }
+
+                const dateKey = cell.dataset.dateKey;
+                if (!dateKey) {
+                    return;
+                }
+
+                activateLinkedByDateKey(dateKey, {
+                    jumpTimeline: true,
+                });
+            });
+
+            calendarGrid.addEventListener('mouseleave', () => {
+                clearLinkedState();
+            });
+        }
+    }
+
+    function shiftCalendarMonth(monthOffset) {
+        calendarMonthDate = new Date(
+            calendarMonthDate.getFullYear(),
+            calendarMonthDate.getMonth() + monthOffset,
+            1,
+        );
+        renderCalendar();
+    }
+
     function setCountdownValue(id, value) {
         const el = document.getElementById(id);
         if (el) {
@@ -136,7 +289,6 @@
         }
 
         const monthLabel = document.getElementById('calendarMonthLabel');
-        const todayInfo = document.getElementById('calendarTodayInfo');
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
@@ -200,9 +352,10 @@
                 day,
             );
             date.setHours(0, 0, 0, 0);
+            const dateKey = toDateKey(date);
 
             const isToday = date.getTime() === today.getTime();
-            const isMilestone = milestoneDateKeys.has(toDateKey(date));
+            const isMilestone = milestoneDateKeys.has(dateKey);
 
             const baseClass =
                 'h-8 rounded-md flex items-center justify-center text-xs sm:text-sm';
@@ -216,16 +369,13 @@
             const defaultClass =
                 !isToday && !isMilestone ? 'text-gray-200' : '';
 
-            dayCellsHtml += `<div class="${baseClass} ${todayClass} ${milestoneClass} ${defaultClass}">${day}</div>`;
+            dayCellsHtml += `<div class="calendar-day ${baseClass} ${todayClass} ${milestoneClass} ${defaultClass}" data-date-key="${dateKey}" data-has-milestone="${isMilestone ? '1' : '0'}">${day}</div>`;
         }
 
         grid.innerHTML = `${weekdayHtml}${dayCellsHtml}`;
 
-        if (todayInfo) {
-            todayInfo.textContent = t.calendarTodayInfo.replace(
-                '{date}',
-                formatTimelineDate(today, currentLang),
-            );
+        if (activeLinkedDateKey) {
+            activateLinkedByDateKey(activeLinkedDateKey);
         }
     }
 
@@ -275,15 +425,20 @@
                     : isDone
                       ? 'text-emerald-300'
                       : 'text-gray-300';
+                const dateKey = toDateKey(item.date);
 
                 return `
-                    <div class="relative">
+                    <div class="timeline-item relative" data-index="${index}" data-date-key="${dateKey}">
                         <span class="absolute -left-[22px] top-1.5 w-3 h-3 rounded-full ${dotClass}"></span>
                         <p class="text-[11px] sm:text-xs text-gray-400">${formatTimelineDate(item.date, currentLang)}</p>
                         <p class="text-sm sm:text-base ${titleClass}">${t.milestones[index] || ''}</p>
                     </div>`;
             })
             .join('');
+
+        if (activeLinkedDateKey) {
+            activateLinkedByDateKey(activeLinkedDateKey);
+        }
     }
 
     function renderLaunchStarted() {
@@ -341,7 +496,11 @@
         setCountdownValue('minutes', minutes);
         setCountdownValue('seconds', seconds);
 
-        renderTimeline();
+        const todayKey = getTodayDateKey();
+        if (todayKey !== lastTimelineDayKey) {
+            lastTimelineDayKey = todayKey;
+            renderTimeline();
+        }
     }
 
     function init() {
@@ -358,28 +517,20 @@
         const calendarPrev = document.getElementById('calendarPrev');
         if (calendarPrev) {
             calendarPrev.addEventListener('click', () => {
-                calendarMonthDate = new Date(
-                    calendarMonthDate.getFullYear(),
-                    calendarMonthDate.getMonth() - 1,
-                    1,
-                );
-                renderCalendar();
+                shiftCalendarMonth(-1);
             });
         }
 
         const calendarNext = document.getElementById('calendarNext');
         if (calendarNext) {
             calendarNext.addEventListener('click', () => {
-                calendarMonthDate = new Date(
-                    calendarMonthDate.getFullYear(),
-                    calendarMonthDate.getMonth() + 1,
-                    1,
-                );
-                renderCalendar();
+                shiftCalendarMonth(1);
             });
         }
 
+        bindLinkedHoverEvents();
         applyLanguage('vi');
+        lastTimelineDayKey = getTodayDateKey();
         updateCountdown();
         countdownInterval = setInterval(updateCountdown, 1000);
     }

@@ -55,3 +55,46 @@ body {
         background-position: 200% center;
     }
 }
+
+.timeline-item,
+.calendar-day {
+    transition: all 0.25s ease;
+}
+
+.timeline-item {
+    border-radius: 0.75rem;
+    padding: 0.375rem 0.5rem;
+    margin-left: -0.5rem;
+}
+
+.timeline-item:hover {
+    background: rgba(245, 158, 11, 0.08);
+}
+
+.calendar-day[data-has-milestone='1'] {
+    cursor: pointer;
+}
+
+.is-linked-active {
+    box-shadow:
+        0 0 0 1px rgba(245, 158, 11, 0.45) inset,
+        0 0 18px rgba(245, 158, 11, 0.25);
+    background: rgba(245, 158, 11, 0.16) !important;
+    color: #fde68a !important;
+}
+
+@keyframes linkedJump {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+    35% {
+        transform: translateY(-3px) scale(1.03);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+    }
+}
+
+.linked-jump {
+    animation: linkedJump 0.35s ease;
+}
