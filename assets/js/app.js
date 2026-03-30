@@ -398,7 +398,7 @@
                 const isCurrent = hasStarted && index === currentIndex;
 
                 const dotClass = isCurrent
-                    ? 'bg-amber-400 ring-4 ring-amber-500/25'
+                    ? 'bg-amber-400 ring-4 ring-amber-500/25 timeline-dot-current'
                     : isDone
                       ? 'bg-emerald-400'
                       : 'bg-gray-500/60';

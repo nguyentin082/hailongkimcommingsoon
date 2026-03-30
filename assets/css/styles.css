@@ -97,3 +97,22 @@ body {
 .linked-jump {
     animation: linkedJump 0.35s ease;
 }
+
+@keyframes currentDotPulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.35);
+    }
+    70% {
+        transform: scale(1.12);
+        box-shadow: 0 0 0 10px rgba(251, 191, 36, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(251, 191, 36, 0);
+    }
+}
+
+.timeline-dot-current {
+    animation: currentDotPulse 1.8s ease-in-out infinite;
+}
