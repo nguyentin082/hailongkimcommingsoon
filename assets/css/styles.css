@@ -126,6 +126,7 @@ body {
 
 .language-toggle-btn {
     display: inline-flex;
+    flex-direction: row;
     align-items: center;
     gap: 0.35rem;
     padding: 0.35rem;
@@ -175,6 +176,7 @@ body {
     }
 
     .language-toggle-btn {
+        flex-direction: column;
         gap: 0.25rem;
         padding: 0.3rem;
     }
