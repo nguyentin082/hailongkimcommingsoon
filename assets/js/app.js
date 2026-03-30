@@ -442,19 +442,8 @@
             button.setAttribute('aria-label', i18n[lang].toggleAria);
         }
 
-        const activeClass = [
-            'bg-gradient-to-r',
-            'from-amber-200',
-            'to-amber-400',
-            'text-slate-900',
-            'border-amber-100/80',
-            'shadow-[0_4px_14px_rgba(251,191,36,0.45)]',
-        ];
-        const inactiveClass = [
-            'bg-transparent',
-            'text-amber-100/80',
-            'border-white/15',
-        ];
+        const activeClass = ['lang-active'];
+        const inactiveClass = ['lang-inactive'];
 
         if (enOption) {
             enOption.classList.remove(...activeClass, ...inactiveClass);

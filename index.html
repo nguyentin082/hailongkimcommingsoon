@@ -87,24 +87,20 @@
             </div>
 
             <!-- Language Toggle -->
-            <div
-                class="fixed top-4 right-4 sm:top-6 sm:right-6 z-[60] pointer-events-auto"
-            >
+            <div class="language-toggle-wrap pointer-events-auto">
                 <button
                     id="langToggle"
                     type="button"
-                    class="inline-flex items-center gap-1.5 p-2 sm:p-2.5 text-xs sm:text-sm font-bold tracking-wide uppercase rounded-full border border-amber-300/70 bg-gradient-to-r from-slate-900/95 via-slate-800/95 to-slate-900/95 shadow-[0_8px_24px_rgba(245,158,11,0.25)] backdrop-blur-xl hover:shadow-[0_10px_28px_rgba(245,158,11,0.35)] transition"
+                    class="language-toggle-btn"
                     aria-label="Chuyển đổi ngôn ngữ"
                 >
-                    <span
-                        id="langOptionEN"
-                        class="px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full border text-amber-100 transition"
-                        >🇬🇧 EN</span
+                    <span id="langOptionEN" class="language-option"
+                        ><span class="lang-flag">🇬🇧</span>
+                        <span class="lang-label">EN</span></span
                     >
-                    <span
-                        id="langOptionVI"
-                        class="px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full border text-amber-100 transition"
-                        >🇻🇳 VI</span
+                    <span id="langOptionVI" class="language-option"
+                        ><span class="lang-flag">🇻🇳</span>
+                        <span class="lang-label">VI</span></span
                     >
                 </button>
             </div>
