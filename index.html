@@ -263,7 +263,9 @@
                             <div class="mt-4 space-y-1 text-xs text-gray-400">
                                 <p id="calendarTodayInfo"></p>
                                 <div class="flex flex-wrap items-center gap-3">
-                                    <span class="inline-flex items-center gap-1.5">
+                                    <span
+                                        class="inline-flex items-center gap-1.5"
+                                    >
                                         <span
                                             class="w-2.5 h-2.5 rounded-full bg-amber-400"
                                         ></span>
@@ -271,7 +273,9 @@
                                             >Hôm nay</span
                                         >
                                     </span>
-                                    <span class="inline-flex items-center gap-1.5">
+                                    <span
+                                        class="inline-flex items-center gap-1.5"
+                                    >
                                         <span
                                             class="w-2.5 h-2.5 rounded-full bg-emerald-400"
                                         ></span>
@@ -286,31 +290,30 @@
                 </div>
             </div>
 
-            <script src="assets/js/app.js" defer></script>
-                    .padStart(2, '0');
-                document.getElementById('seconds').innerText = seconds
-                    .toString()
-                    .padStart(2, '0');
+            <!-- Minimal Footer -->
+            <div class="absolute bottom-4 sm:bottom-12 w-full text-center">
+                <p
+                    id="footerSlogan"
+                    class="text-amber-500/60 text-[10px] md:text-xs tracking-[0.5em] uppercase font-semibold"
+                >
+                    Sự Sang Trọng Trong Từng Điểm Đến
+                </p>
+                <p
+                    class="text-gray-600 text-[10px] mt-2 tracking-widest uppercase"
+                >
+                    © <span id="currentYear"></span> Hai Long Kim Tourist
+                </p>
+            </div>
 
-                if (distance < 0) {
-                    clearInterval(countdownInterval);
-                    document.getElementById('countdown').innerHTML =
-                        `<p class='text-2xl font-bold text-amber-500 col-span-4 tracking-[0.3em] uppercase'>${i18n[currentLang].launchStarted}</p>`;
-                }
+            <!-- Decorative Elements -->
+            <div
+                class="absolute top-1/2 left-0 -translate-y-1/2 w-[200px] sm:w-[350px] md:w-[500px] h-[200px] sm:h-[350px] md:h-[500px] bg-blue-900/10 blur-[80px] sm:blur-[120px] md:blur-[150px] rounded-full pointer-events-none"
+            ></div>
+            <div
+                class="absolute bottom-0 right-0 w-[150px] sm:w-[280px] md:w-[400px] h-[150px] sm:h-[280px] md:h-[400px] bg-amber-900/10 blur-[80px] sm:blur-[120px] md:blur-[150px] rounded-full pointer-events-none"
+            ></div>
+        </section>
 
-                renderTimeline();
-            }
-
-            document
-                .getElementById('langToggle')
-                .addEventListener('click', () => {
-                    const nextLang = currentLang === 'vi' ? 'en' : 'vi';
-                    applyLanguage(nextLang);
-                });
-
-            applyLanguage('vi');
-            const countdownInterval = setInterval(updateCountdown, 1000);
-            updateCountdown();
-        </script>
+        <script src="assets/js/app.js" defer></script>
     </body>
 </html>
