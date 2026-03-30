@@ -29,9 +29,6 @@
             launchStarted: 'Hành trình đã bắt đầu!',
             toggle: 'EN',
             timelineTitle: 'Timeline dự án',
-            timelineNowLabel: 'Giai đoạn hiện tại',
-            timelineNotStartedText: 'Chưa bắt đầu',
-            timelineDoneText: 'Hoàn tất toàn bộ timeline',
             calendarTitle: 'Lịch timeline',
             calendarToday: 'Hôm nay',
             calendarMilestone: 'Mốc timeline',
@@ -62,9 +59,6 @@
             launchStarted: 'The journey has begun!',
             toggle: 'VI',
             timelineTitle: 'Project timeline',
-            timelineNowLabel: 'Current stage',
-            timelineNotStartedText: 'Not started yet',
-            timelineDoneText: 'All timeline milestones completed',
             calendarTitle: 'Timeline calendar',
             calendarToday: 'Today',
             calendarMilestone: 'Timeline milestone',
@@ -393,17 +387,6 @@
         }
 
         const hasStarted = currentIndex >= 0;
-        const allDone =
-            hasStarted && currentIndex === timelineMilestones.length - 1;
-
-        setTextById(
-            'timelineCurrentPhase',
-            !hasStarted
-                ? t.timelineNotStartedText
-                : allDone
-                  ? t.timelineDoneText
-                  : t.milestones[currentIndex] || '',
-        );
 
         if (!timelineList) {
             return;
@@ -467,7 +450,6 @@
         setTextById('footerSlogan', t.footer);
         setTextById('langToggleText', t.toggle);
         setTextById('timelineTitle', t.timelineTitle);
-        setTextById('timelineNowLabel', t.timelineNowLabel);
 
         renderTimeline();
         renderCalendar();
